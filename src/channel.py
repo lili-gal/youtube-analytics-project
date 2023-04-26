@@ -19,6 +19,3 @@ class Channel:
     def print_info(self):
         """Выводит словарь в json-подобном удобном формате с отступами"""
         print(json.dumps(self.channel_info, indent=2, ensure_ascii=False))
-
-
-
