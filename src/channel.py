@@ -35,6 +35,14 @@ class Channel:
             self.video_count = channel['statistics']['videoCount']
             self.view_count = channel['statistics']['viewCount']
 
+    @property
+    def channel_id(self):
+        return self.__channel_id
+
+    # @channel_id.setter
+    # def channel_id(self, channel):
+    #     self.__channel_id = channel
+
     @staticmethod
     def get_service():
         """Возвращает объект для работы с API."""
