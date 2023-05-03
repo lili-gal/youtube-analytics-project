@@ -35,9 +35,48 @@ class Channel:
             self.video_count = channel['statistics']['videoCount']
             self.view_count = channel['statistics']['viewCount']
 
+    def __str__(self):
+        return f'{self.title} ({self.url})'
+
     @property
     def channel_id(self):
         return self.__channel_id
+
+    def __add__(self, other):
+        subscribers1 = \
+            self.service.channels().list(id=self.channel_id, part='statistics').execute()['items'][0]['statistics'][
+                'subscriberCount']
+        subscribers2 = \
+            other.service.channels().list(id=other.channel_id, part='statistics').execute()['items'][0]['statistics'][
+                'subscriberCount']
+        return int(subscribers1) + int(subscribers2)
+
+    def __sub__(self, other):
+        subscribers1 = \
+            self.service.channels().list(id=self.channel_id, part='statistics').execute()['items'][0]['statistics'][
+                'subscriberCount']
+        subscribers2 = \
+            other.service.channels().list(id=other.channel_id, part='statistics').execute()['items'][0]['statistics'][
+                'subscriberCount']
+        return int(subscribers1) - int(subscribers2)
+
+    def __gt__(self, other):
+        subscribers1 = \
+            self.service.channels().list(id=self.channel_id, part='statistics').execute()['items'][0]['statistics'][
+                'subscriberCount']
+        subscribers2 = \
+            other.service.channels().list(id=other.channel_id, part='statistics').execute()['items'][0]['statistics'][
+                'subscriberCount']
+        return int(subscribers1) > int(subscribers2)
+
+    def __ge__(self, other):
+        subscribers1 = \
+            self.service.channels().list(id=self.channel_id, part='statistics').execute()['items'][0]['statistics'][
+                'subscriberCount']
+        subscribers2 = \
+            other.service.channels().list(id=other.channel_id, part='statistics').execute()['items'][0]['statistics'][
+                'subscriberCount']
+        return int(subscribers1) >= int(subscribers2)
 
     # @channel_id.setter
     # def channel_id(self, channel):
