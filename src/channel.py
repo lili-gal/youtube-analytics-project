@@ -35,48 +35,24 @@ class Channel:
             self.video_count = channel['statistics']['videoCount']
             self.view_count = channel['statistics']['viewCount']
 
-    def __str__(self):
-        return f'{self.title} ({self.url})'
-
     @property
     def channel_id(self):
         return self.__channel_id
 
+    def __str__(self):
+        return f'{self.title} ({self.url})'
+
     def __add__(self, other):
-        subscribers1 = \
-            self.service.channels().list(id=self.channel_id, part='statistics').execute()['items'][0]['statistics'][
-                'subscriberCount']
-        subscribers2 = \
-            other.service.channels().list(id=other.channel_id, part='statistics').execute()['items'][0]['statistics'][
-                'subscriberCount']
-        return int(subscribers1) + int(subscribers2)
+        return int(self.subscriber_count) + int(other.subscriber_count)
 
     def __sub__(self, other):
-        subscribers1 = \
-            self.service.channels().list(id=self.channel_id, part='statistics').execute()['items'][0]['statistics'][
-                'subscriberCount']
-        subscribers2 = \
-            other.service.channels().list(id=other.channel_id, part='statistics').execute()['items'][0]['statistics'][
-                'subscriberCount']
-        return int(subscribers1) - int(subscribers2)
+        return int(self.subscriber_count) - int(other.subscriber_count)
 
     def __gt__(self, other):
-        subscribers1 = \
-            self.service.channels().list(id=self.channel_id, part='statistics').execute()['items'][0]['statistics'][
-                'subscriberCount']
-        subscribers2 = \
-            other.service.channels().list(id=other.channel_id, part='statistics').execute()['items'][0]['statistics'][
-                'subscriberCount']
-        return int(subscribers1) > int(subscribers2)
+        return self.subscriber_count > other.subscriber_count
 
     def __ge__(self, other):
-        subscribers1 = \
-            self.service.channels().list(id=self.channel_id, part='statistics').execute()['items'][0]['statistics'][
-                'subscriberCount']
-        subscribers2 = \
-            other.service.channels().list(id=other.channel_id, part='statistics').execute()['items'][0]['statistics'][
-                'subscriberCount']
-        return int(subscribers1) >= int(subscribers2)
+        return self.subscriber_count >= other.subscriber_count
 
     # @channel_id.setter
     # def channel_id(self, channel):
